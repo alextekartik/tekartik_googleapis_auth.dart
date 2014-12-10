@@ -1,0 +1,5 @@
+# list of files needed for web deployment
+files:
+  - index.html
+  - main.dart.js
+  - packages/browser/dart.js

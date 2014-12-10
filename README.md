@@ -1,4 +1,4 @@
-tekartik_gapi.dart
-==================
+tekartik_googleapis_auth.dart
+=============================
 
-Tekartik gapi wrapper
+Temporary hack around googleapis_auth to support specifying a userId during silent authentification

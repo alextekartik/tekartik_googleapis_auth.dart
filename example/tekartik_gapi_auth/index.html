@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>googleapis_auth_test</title>
+    <style>
+    body {
+      font-family: sans-serif;
+      max-width: 800px;
+      margin: auto;
+      font-size: large;
+    }
+    button {
+      color: white;
+      border: none;
+      background-color: blue;
+      margin: 5px;
+      padding: 15px;
+      font-size: large;
+    }
+    #login {
+      background-color: green;
+    }
+    #logout {
+      background-color: red;
+    }
+    #error {
+      color: red;
+    }
+    </style>
+  </head>
+ 
+  <body>   
+    <p>Simple application to test googleapis_auth hack...</p>
+    <button id="login">Log in</button>
+    <button id="loginhybrid">Log in (choose user)</button>
+    <button id="logout">Log out</button>
+    <p>As a good experiment, log in with a user first, then login again and choose another user then reload the page to see the default authentification</p>
+    <pre id="status"></pre>
+    <pre id="error"></pre>
+    
+    <script type="application/dart" src="main.dart"></script>
+    <script src="packages/browser/dart.js"></script>
+  </body>
+</html>
