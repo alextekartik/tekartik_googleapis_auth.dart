@@ -1,4 +1,4 @@
-import 'package:tekartik_gapi/auth_browser.dart';
+import 'package:tekartik_googleapis_auth/auth_browser.dart';
 import 'package:googleapis/plus/v1.dart';
 import 'dart:html';
 import 'dart:async';
@@ -8,7 +8,7 @@ final ClientId clientId = new ClientId("673610294238-qvk8j295q46sb752nj20oapdjsm
 final List<String> scopes = ["email"];
 
 // deployed to
-// gsdeploy.dart  build/deploy/web gs://gstest.tekartik.com/googleapis_auth_test
+// gsdeploy.dart  build/deploy/example/tekartik_googleapis_auth gs://gstest.tekartik.com/tekartik_googleapis_auth_test
 Element statusElement;
 Element errorElement;
 ButtonElement logInButton;
