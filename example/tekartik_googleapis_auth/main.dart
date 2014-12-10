@@ -33,9 +33,9 @@ void setErrorStatus(String msg, e, st) {
   error = "msg: $msg\nerr: $e\n st: $st";
 }
 
-Future clientViaUserConsent(BrowserOAuth2Flow flow, {bool immediate, String userId}) {
+Future clientViaUserConsent(BrowserOAuth2Flow flow, {bool force, bool immediate, String userId}) {
 // Try am immediate sign-in first
-  return flow.clientViaUserConsent(immediate: immediate, userId: userId).then((AutoRefreshingAuthClient client) {
+  return flow.clientViaUserConsent(force: force, immediate: immediate, userId: userId).then((AutoRefreshingAuthClient client) {
     onLoggedIn(client);
   }).catchError((e, st) {
     setErrorStatus("clientViaUserConsent", e, st);
@@ -91,17 +91,25 @@ main() {
       return clientViaUserConsent(flow);
     });
   });
+//  logInHybridButton.onClick.listen((_) {
+//    _inFlow((BrowserOAuth2Flow flow) {
+//      flow.runHybridFlow(force: true).then((HybridFlowResult result) {
+//      // flow.runHybridFlow(force: true).then((HybridFlowResult result) {
+//        onLoggedIn(result.newClient());
+//      }).catchError((e, st) {
+//        setErrorStatus("clientViaUserConsent", e, st);
+//      }).whenComplete(() {
+//
+//      });
+//    });
+//  });
+  
   logInHybridButton.onClick.listen((_) {
     _inFlow((BrowserOAuth2Flow flow) {
-      flow.runHybridFlow(force: true).then((HybridFlowResult result) {
-        onLoggedIn(result.newClient());
-      }).catchError((e, st) {
-        setErrorStatus("clientViaUserConsent", e, st);
-      }).whenComplete(() {
-
-      });
+      return clientViaUserConsent(flow, force: true);
     });
   });
+  
 
   logOutButton.onClick.listen((_) {
     if (_flow != null) {

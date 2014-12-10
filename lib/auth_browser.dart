@@ -110,9 +110,9 @@ class BrowserOAuth2Flow {
   ///
   /// In case another error occurs the returned future will complete with an
   /// `Exception`.
-  Future<AccessCredentials> obtainAccessCredentialsViaUserConsent({bool immediate: false, String userId}) {
+  Future<AccessCredentials> obtainAccessCredentialsViaUserConsent({bool force, bool immediate: false, String userId}) {
     _ensureOpen();
-    return _login(force: false, immediate: immediate, userId: userId);
+    return _login(force: force, immediate: immediate, userId: userId);
   }
 
   /// Obtains [AccessCredentials] and returns an authenticated HTTP client.
@@ -133,8 +133,8 @@ class BrowserOAuth2Flow {
   /// `Future<Response>` or it's `Response.read()` stream.
   ///
   /// The user is responsible for closing the returned HTTP client.
-  Future<AutoRefreshingAuthClient> clientViaUserConsent({bool immediate: false, String userId}) {
-    return obtainAccessCredentialsViaUserConsent(immediate: immediate, userId: userId).then(_clientFromCredentials);
+  Future<AutoRefreshingAuthClient> clientViaUserConsent({bool force, bool immediate: false, String userId}) {
+    return obtainAccessCredentialsViaUserConsent(force: force, immediate: immediate, userId: userId).then(_clientFromCredentials);
   }
 
   /// Obtains [AccessCredentials] and an authorization code which can be
