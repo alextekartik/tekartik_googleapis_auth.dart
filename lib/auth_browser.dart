@@ -9,6 +9,7 @@ import 'package:http/http.dart';
 import 'package:http/browser_client.dart';
 
 import 'package:googleapis_auth/auth.dart';
+export 'package:googleapis_auth/auth_browser.dart' hide BrowserOAuth2Flow;
 import 'package:googleapis_auth/src/auth_http_utils.dart';
 import 'package:googleapis_auth/src/oauth2_flows/implicit.dart';
 import 'package:googleapis_auth/src/http_client_base.dart';
@@ -18,22 +19,6 @@ import "dart:js" as js;
 
 export 'package:googleapis_auth/auth.dart';
 
-/// Obtains a HTTP client which uses the given [apiKey] for making HTTP
-/// requests.
-///
-/// Note that the returned client should *only* be used for making HTTP requests
-/// to Google Services. The [apiKey] should not be disclosed to third parties.
-///
-/// The user is responsible for closing the returned HTTP [Client].
-/// Closing the returned [Client] will not close [baseClient].
-Client clientViaApiKey(String apiKey, {Client baseClient}) {
-  if (baseClient == null) {
-    baseClient = new BrowserClient();
-  } else {
-    baseClient = nonClosingClient(baseClient);
-  }
-  return new ApiKeyClient(baseClient, apiKey);
-}
 
 /// Will create and complete with a [BrowserOAuth2Flow] object.
 ///
@@ -54,7 +39,8 @@ Client clientViaApiKey(String apiKey, {Client baseClient}) {
 /// The user is responsible for closing the returned [BrowserOAuth2Flow] object.
 /// Closing the returned [BrowserOAuth2Flow] will not close [baseClient]
 /// if one was given.
-Future<BrowserOAuth2Flow> createImplicitBrowserFlow(ClientId clientId, List<String> scopes, {Client baseClient}) {
+Future<BrowserOAuth2Flow> createImplicitBrowserFlow(
+    ClientId clientId, List<String> scopes, {Client baseClient}) {
   if (baseClient == null) {
     baseClient = new RefCountedClient(new BrowserClient(), initialRefCount: 1);
   } else {
@@ -137,37 +123,6 @@ class BrowserOAuth2Flow {
     return obtainAccessCredentialsViaUserConsent(force: force, immediate: immediate, userId: userId).then(_clientFromCredentials);
   }
 
-  /// Obtains [AccessCredentials] and an authorization code which can be
-  /// exchanged for permanent access credentials.
-  ///
-  /// Use case:
-  /// A web application might want to get consent for accessing data on behalf
-  /// of a user. The client part is a dynamic webapp which wants to open a
-  /// popup which asks the user for consent. The webapp might want to use the
-  /// credentials to make API calls, but the server may want to have offline
-  /// access to user data as well.
-  ///
-  /// If [force] is `true` this will create a popup window and ask the user to
-  /// grant the application offline access. In case the user is not already
-  /// logged in, he will be presented with an login dialog first.
-  ///
-  /// If [force] is `false` this will only create a popup window if the user
-  /// has not already granted the application access. Please note that the
-  /// authorization code can only be exchanged for a refresh token if the user
-  /// had to grant access via the popup window. Otherwise the code exchange
-  /// will only give an access token.
-  ///
-  /// If [immediate] is `true` there will be no user involvement. If the user
-  /// is either not logged in or has not already granted the application access,
-  /// a `UserConsentException` will be thrown.
-  Future<HybridFlowResult> runHybridFlow({bool force: true, bool immediate: false}) {
-    _ensureOpen();
-    return _login(force: force, immediate: immediate, hybrid: true).then((List tuple) {
-      assert(tuple.length == 2);
-      return new HybridFlowResult(this, tuple[0], tuple[1]);
-    });
-  }
-
   /// Will close this [BrowserOAuth2Flow] object and the HTTP [Client] it is
   /// using.
   ///
@@ -228,7 +183,7 @@ class BrowserOAuth2Flow {
         var token = jsTokenObject['access_token'];
         var expiresInRaw = jsTokenObject['expires_in'];
         var code = jsTokenObject['code'];
-        var state = jsTokenObject['state'];
+        //var state = jsTokenObject['state'];
         var error = jsTokenObject['error'];
 
         var expiresIn;
@@ -291,14 +246,13 @@ class HybridFlowResult {
   }
 }
 
-
 class _AutoRefreshingBrowserClient extends AutoRefreshDelegatingClient {
   AccessCredentials credentials;
   ImplicitFlow _flow;
   Client _authClient;
 
   _AutoRefreshingBrowserClient(Client client, this.credentials, this._flow)
-      : super(client) {
+  : super(client) {
     _authClient = authenticatedClient(baseClient, credentials);
   }
 

@@ -5,8 +5,10 @@ environment:
   sdk: '>=1.0.0 <2.0.0'
 dependencies:
   browser: any
-  dart_to_js_script_rewriter: any
   googleapis: any
   googleapis_auth: any
+dev_dependencies:
+  test: any
+  dart_to_js_script_rewriter: any
 transformers:
 - dart_to_js_script_rewriter
