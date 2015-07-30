@@ -7,8 +7,8 @@ dependencies:
   browser: any
   googleapis: any
   googleapis_auth: any
+  dart_to_js_script_rewriter: any
 dev_dependencies:
   test: any
-  dart_to_js_script_rewriter: any
 transformers:
 - dart_to_js_script_rewriter
