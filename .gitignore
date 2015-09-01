@@ -16,4 +16,4 @@ packages
 # Include when developing application packages.
 pubspec.lock
 
-.local_*
+.local_*.packages
