@@ -2,10 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
-
 import 'package:googleapis_auth/auth.dart';
-import 'package:googleapis/drive/v2.dart' as drive;
 import 'dart:io';
 import 'package:googleapis/plus/v1.dart';
 import 'package:path/path.dart';

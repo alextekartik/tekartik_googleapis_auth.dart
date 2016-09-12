@@ -7,9 +7,7 @@ import 'package:googleapis_auth/auth_io.dart' as auth;
 import 'package:googleapis_auth/auth.dart' as auth;
 import 'dart:io';
 import 'package:yaml/yaml.dart';
-import 'package:path/path.dart';
 import "package:http/http.dart" as http;
-import 'dart:io';
 
 String clientIdFilename = '.local_client_id.yaml';
 String accessCredentialsFilename = '.local_access_credentials.yaml';
@@ -18,14 +16,14 @@ Map getMapFromYamlFileSync(String filename) {
   String fileContent;
   try {
     fileContent = new File(filename).readAsStringSync();
-  } catch (e, st) {
+  } catch (e, _) {
     stderr.writeln('file not found in ${filename}');
     throw e;
   }
 
   try {
    return loadYaml(fileContent);
-  } catch (e, st) {
+  } catch (e, _) {
     stderr.writeln('Expected content as yaml in ${filename}');
     throw e;
   }
@@ -61,7 +59,7 @@ Future<auth.AuthClient> getAuthClient(auth.ClientId clientId, List<String> scope
     if (accessCredentialsFilePath != null) {
       accessCredentials = getAccessCredentialsFromYamlFileSync(accessCredentialsFilePath, scopes);
     }
-  } catch (e, st) {
+  } catch (e, _) {
     stderr.writeln('Credential file not found');
   }
 
