@@ -1,14 +1,14 @@
 name: tekartik_googleapis_auth
-version: 0.0.1
-description: A minimal web app for the developer that doesn’t want to be confused by too much going on.
+version: 0.0.2
+description: Allow login with a specific account
 environment:
   sdk: '>=1.0.0 <2.0.0'
 dependencies:
-  browser: any
-  googleapis: any
-  googleapis_auth: any
-  dart_to_js_script_rewriter: any
+  browser: '>=0.10.0'
+  googleapis: '>=0.32.0'
+  googleapis_auth: '>=0.2.3'
+  dart_to_js_script_rewriter: '>=1.0.2'
 dev_dependencies:
-  test: any
+  test: '>=0.12.16'
 transformers:
 - dart_to_js_script_rewriter
