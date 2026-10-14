@@ -1,6 +1,6 @@
 library tekartik_google_auth.auth_utils;
 
-import 'package:googleapis_auth/auth.dart';
+import 'package:googleapis_auth/googleapis_auth.dart';
 
 Map clientIdToMap(ClientId clientId) {
   return {

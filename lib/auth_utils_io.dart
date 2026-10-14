@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'auth_utils.dart';
 import 'package:googleapis_auth/auth_io.dart' as auth;
-import 'package:googleapis_auth/auth.dart' as auth;
+import 'package:googleapis_auth/googleapis_auth.dart' as auth;
 import 'dart:io';
 import 'package:yaml/yaml.dart';
 import "package:http/http.dart" as http;
@@ -52,9 +52,9 @@ auth.AccessCredentials getAccessCredentialsFromYamlFileSync(String filename, Lis
 /// write temp credentials into .local_access_credentials file (that should not be in source control)
 ///
 /// if [accessCredentialsFilePath] is not null, credentials are read/written for later use
-Future<auth.AuthClient> getAuthClient(auth.ClientId clientId, List<String> scopes, {String accessCredentialsFilePath}) async {
+Future<auth.AuthClient> getAuthClient(auth.ClientId clientId, List<String> scopes, {String? accessCredentialsFilePath}) async {
 
-  auth.AccessCredentials accessCredentials;
+  auth.AccessCredentials? accessCredentials;
   try {
     if (accessCredentialsFilePath != null) {
       accessCredentials = getAccessCredentialsFromYamlFileSync(accessCredentialsFilePath, scopes);
